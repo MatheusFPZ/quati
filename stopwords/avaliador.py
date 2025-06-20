@@ -52,7 +52,7 @@ def calcular_aps(resultados, qrels):
 
 # === Arquivos ===
 arquivo_com_stop = "resultados_com_stop.csv"
-arquivo_sem_stop = "resultados_sem_stop.csv"
+arquivo_sem_stop = "resultados_sem_stem.csv"
 arquivo_qrels = "quati_1M_qrels.txt"
 
 # === Execução ===

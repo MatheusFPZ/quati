@@ -1,4 +1,4 @@
-import requests, csv, time, difflib
+import requests, csv, time
 
 def get_relevant_query_ids(qrels_file):
     relevant_ids = set()
@@ -45,33 +45,14 @@ def consultar_solr(consultas, solr_url, output_csv, campo):
         total_end = time.time()
         print(f"\n⏱️ Tempo total de consulta [{campo}]: {total_end - total_start:.2f} segundos")
 
-def comparar_csvs(file1, file2):
-    with open(file1, encoding="utf-8") as f1, open(file2, encoding="utf-8") as f2:
-        linhas1 = f1.readlines()
-        linhas2 = f2.readlines()
-        diferencas = list(difflib.unified_diff(linhas1, linhas2))
-        if not diferencas:
-            print("⚠️ Os arquivos são idênticos! Verifique se o campo df está realmente funcionando.")
-        else:
-            print("✅ Os arquivos são diferentes.")
-
 # ---- Executar ----
 qrels_path = "quati_1M_qrels.txt"
 topics_path = "quati_all_topics.tsv"
-solr_url = "http://localhost:8983/solr/quati3/select"
-
+solr_url = "http://localhost:8983/solr/exemplo_stopwords/select"
 output_com_stop = "resultados_com_stop.csv"
-output_sem_stop = "resultados_sem_stop.csv"
 
 relevant_ids = get_relevant_query_ids(qrels_path)
 consultas = carregar_consultas_relevantes(topics_path, relevant_ids)
 
 print("🔎 Consultando campo com stopwords...")
 consultar_solr(consultas, solr_url, output_com_stop, campo="texto_com_stop")
-
-print("\n🔎 Consultando campo sem stopwords...")
-consultar_solr(consultas, solr_url, output_sem_stop, campo="texto_sem_stop")
-
-# Comparar os dois arquivos de saída
-print("\n🔍 Comparando resultados...")
-comparar_csvs(output_com_stop, output_sem_stop)
