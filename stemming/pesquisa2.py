@@ -30,7 +30,7 @@ def consultar_solr(consultas, solr_url, output_csv, campo):
                 "q": query_text,
                 "rows": 100,
                 "fl": "passage_id,score",
-                "df": campo  # campo com ou sem stemming
+                "df": campo
             }
             r = requests.get(solr_url, params=params).json()
             for rank, doc in enumerate(r["response"]["docs"], start=1):
@@ -48,18 +48,12 @@ def consultar_solr(consultas, solr_url, output_csv, campo):
 # ---- Executar ----
 qrels_path = "quati_1M_qrels.txt"
 topics_path = "quati_all_topics.tsv"
-solr_url = "http://localhost:8983/solr/quati_stemming/select"  # ou o core que você está usando
+solr_url = "http://localhost:8983/solr/exemplo_stemming/select"
 
-# Modo COM stemming
 output_com_stem = "resultados_com_stem.csv"
-# Modo SEM stemming
-output_sem_stem = "resultados_sem_stem.csv"
 
 relevant_ids = get_relevant_query_ids(qrels_path)
 consultas = carregar_consultas_relevantes(topics_path, relevant_ids)
 
 print("🔎 Consultando campo com stemming...")
 consultar_solr(consultas, solr_url, output_com_stem, campo="texto_com_stem")
-
-print("\n🔎 Consultando campo sem stemming...")
-consultar_solr(consultas, solr_url, output_sem_stem, campo="texto_sem_stem")

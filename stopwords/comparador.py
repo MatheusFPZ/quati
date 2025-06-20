@@ -5,7 +5,7 @@ from scipy.stats import ttest_rel
 
 # === ARQUIVOS ===
 arquivo_com = "resultados_com_stop.csv"
-arquivo_sem = "resultados_sem_stop.csv"
+arquivo_sem = "resultados_sem_lema.csv"
 arquivo_qrels = "quati_1M_qrels.txt"
 
 # === INSERIR TEMPOS (em segundos) ===

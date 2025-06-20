@@ -51,14 +51,14 @@ def calcular_aps(resultados, qrels):
     return aps
 
 # === Arquivos ===
-arquivo_com_stem = "resultados_com_stem.csv"
-arquivo_sem_stem = "resultados_sem_stem.csv"
+arquivo_com_stop = "resultados_com_stem.csv"
+arquivo_sem_stop = "resultados_sem_stem.csv"
 arquivo_qrels = "quati_1M_qrels.txt"
 
 # === Execução ===
 qrels = carregar_qrels(arquivo_qrels)
-res_com = carregar_resultados(arquivo_com_stem)
-res_sem = carregar_resultados(arquivo_sem_stem)
+res_com = carregar_resultados(arquivo_com_stop)
+res_sem = carregar_resultados(arquivo_sem_stop)
 
 aps_com = calcular_aps(res_com, qrels)
 aps_sem = calcular_aps(res_sem, qrels)
@@ -79,10 +79,10 @@ map_sem = sum(aps_sem_vals) / len(aps_sem_vals)
 t_stat, p_value = ttest_rel(aps_com_vals, aps_sem_vals)
 
 # === Resultado final ===
-print("\n📊 COMPARAÇÃO COM STEMMING")
+print("\n📊 COMPARAÇÃO COM STOPWORDS")
 print("-" * 40)
-print(f"🔎 MAP com stemming     : {map_com:.4f}")
-print(f"🔎 MAP sem stemming     : {map_sem:.4f}")
+print(f"🔎 MAP com stopwords     : {map_com:.4f}")
+print(f"🔎 MAP sem stopwords     : {map_sem:.4f}")
 print(f"📈 Diferença de MAP     : {map_sem - map_com:.4f}")
 print()
 print(f"🧪 Teste T pareado (AP por consulta)")
@@ -92,3 +92,4 @@ if p_value < 0.05:
     print("✅ Diferença estatisticamente significativa (p < 0.05)")
 else:
     print("❌ Diferença não significativa (p ≥ 0.05)")
+ 

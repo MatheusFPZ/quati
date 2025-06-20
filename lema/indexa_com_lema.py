@@ -6,7 +6,7 @@ import spacy
 import multiprocessing
 
 # Configurações
-SOLR_URL = 'http://localhost:8983/solr/quati_lema'
+SOLR_URL = 'http://localhost:8983/solr/exemplo_lema'
 JSON_FILE = 'quati_1M_passages.json'
 BATCH_SIZE = 1000      # Número de docs enviados ao Solr por vez
 LEMA_BATCH = 100       # Número de textos lematizados por processo por vez
@@ -74,5 +74,3 @@ if __name__ == "__main__":
     print("🔄 Iniciando indexação COM lematização (paralelo)...")
     indexar("com_lema")
 
-    print("\n🔄 Iniciando indexação SEM lematização...")
-    indexar("sem_lema")
